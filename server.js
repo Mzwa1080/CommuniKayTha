@@ -1,12 +1,11 @@
 var express = require('express');
 app = express(),
-    server = require('https').createServer(app),
+    server = require('http').createServer(app),
     io = require('socket.io').listen(server);
     usernames = [];
 
-server.listen(process.env.port || 2000);
-console.log('App starting on port ')
-
+server.listen(process.env.port || 8100);
+console.log('server on point!!!')
 
 
 app.get('/', function (req, res) {
