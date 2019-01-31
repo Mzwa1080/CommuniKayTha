@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ChatRoom</title>
+    <style>
+        body{
+        background:#f9f9f9;
+    }
+    #container{
+        margin: 0 auto;
+        width: 700px;
+    }
+    #chatWindow{
+        height: 300px;
+    }
+    #mainWrapper{
+        display: none;
+
+    }
+    #chatWrapper{
+        float: left;
+        border: 1px #ccc solid;
+        border-radius: 10px;
+        background: #f4f4f4;
+        padding: 10px;
+    }
+    #userWrapper{
+        float: left;
+        border: 1px #ccc solid;
+        border-radius: 10px;
+        background: #f4f4f4;
+        padding: 10px;
+        margin-left: 20px;
+        width: 150px;
+        max-height: 200px;
+    }
+    #namesWrapper{
+        float: left;
+        border: 1px #ccc solid;
+        border-radius: 10px;
+        background: #f4f4f4;
+        padding: 10px;
+        margin-left: 20px;
+
+    }
+
+    input{
+        height: 30px;
+        border: solid 1px grey;
+    }
+</style>
+</head>
+
+<body>
+    <div id="container">
+        <div id="namesWrapper">
+            <h2>ChatRoom</h2>
+            <p>Create username:</p>
+            <div id='error'></div>
+            <form  id="usernameForm">
+                <input type="text" size="35" id="username">
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+
+        <div id="mainWrapper">
+            <h2>ChatRoom</h2>
+            <div id="chatWrapper">
+                <div id="chatWindow"> </div>
+                <form id="messageForm">
+                    <input type="text" size="35" id="message" placeholder="Say Something">
+                    <input type="submit" value="Submit">
+                </form>
+            </div>
+            <div id="userWrapper">
+                <div id="users"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+
+    <!-- coonect using the socket connection server -->
+    <script>
+        $(function(){
+            var socket = io.connect();
+            var $messageForm = $('#messageForm');
+            var $message = $('#message');
+            var $chat = $('#chatWindow');
+            var $usernameForm =$('#usernameForm');
+            var $users = $('#users');
+            var $username = $('#username');
+            var $error = $('#error');
+
+
+            $usernameForm.submit(function(e){
+                e.preventDefault()
+                socket.emit('new user', $username.val(), function(data){
+                    if(data){
+                        $('#namesWrapper').hide()
+                        $('#mainWrapper').show()
+                    }else{
+                        $error.html('Username is taken Boo!')
+                    }
+                })
+               
+            })
+
+            socket.on('usernames', function(data){
+                var html = '';
+                
+                for(i=0;i<data.length;i++){
+                    html += data[i] + '<br>';
+                }
+                $users.html(html);
+
+            })
+
+
+
+            $messageForm.submit(function(e){
+                e.preventDefault()
+                socket.emit('send text', $message.val())
+                $message.val('')
+            })
+            socket.on('new message', function(data){
+                $chat.append('<strong>' + data.user + '</strong> :' + data.msg + '<br>');
+            });
+        });
+    </script>
+
+</body>
+
+</html>
