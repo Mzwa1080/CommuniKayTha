@@ -1,19 +1,13 @@
 var express = require('express');
 app = express(),
-PORT = require('https').createServer(app),
+    server = require('https').createServer(app),
     // server = createServer(app),
     // Attaching SOCKET.IO TO EXPRESS SERVER
-    io = require('socket.io').listen(PORT);
+    io = require('socket.io').listen(server);
     usernames = [];
 
-PORT.listen(process.env.port || 8205);
-console.log('Server Started')
-
-
-// let PORT = process.env.PORT || 3080;
-// app.listen(PORT, function(){
-//   	console.log('App starting on port', PORT);
-// });
+server.listen(process.env.port || 8209);
+console.log('server on point!!!')
 
 
 app.get('/', function (req, res) {
