@@ -4,10 +4,9 @@ app = express(),
     io = require('socket.io').listen(server);
     usernames = [];
 
-    let PORT = process.env.PORT || 8080;
-    app.listen(PORT, () => {
-      console.log('App starting on port', PORT);
-    });
+server.listen(process.env.port || 2000);
+console.log('App starting on port ')
+
 
 app.get('/', function (req, res) {
     // when you go to home streen slash load this file
