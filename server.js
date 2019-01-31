@@ -4,7 +4,7 @@ app = express(),
     io = require('socket.io').listen(server);
     usernames = [];
 
-server.listen(process.env.port || 8080);
+server.listen(process.env.port || 80);
 console.log('server on point!!!')
 
 app.get('/', function (req, res) {
