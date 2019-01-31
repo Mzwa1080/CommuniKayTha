@@ -1,14 +1,13 @@
 var express = require('express');
 app = express(),
-    server = require('https').createServer(app),
-    // server = createServer(app),
-    // Attaching SOCKET.IO TO EXPRESS SERVER
+    server = require('http').createServer(app),
     io = require('socket.io').listen(server);
     usernames = [];
 
-server.listen(process.env.port || 8201);
-console.log('server on point!!!')
+let PORT = server.listen(process.env.port || 8078) || app.listen(8078);;
+console.log(PORT)
 
+console.log('server on point!!!')
 
 app.get('/', function (req, res) {
     // when you go to home streen slash load this file
