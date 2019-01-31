@@ -1,22 +1,16 @@
 var express = require('express');
-server = express(),
-    app = require('https').createServer(server),
-    // server = createServer(server),
+app = express(),
+    server = require('https').createServer(app),
+    // server = createServer(app),
     // Attaching SOCKET.IO TO EXPRESS SERVER
-    io = require('socket.io').listen(app);
+    io = require('socket.io').listen(server);
     usernames = [];
 
-// app.listen(process.env.port || 8219);
-// console.log('server on point!!!')
+server.listen(process.env.port || 8201);
+console.log('server on point!!!')
 
 
-let PORT = process.env.PORT || 8218;
-app.listen(PORT, () => {
-  console.log('App starting on port', PORT);
-});
-
-
-server.get('/', function (req, res) {
+app.get('/', function (req, res) {
     // when you go to home streen slash load this file
     res.sendFile(__dirname + '/index.html')
 })
