@@ -1,7 +1,7 @@
 var express = require('express'),
   app = express(),
-//   port = process.env.PORT || 3000,
-  path = require('path'),
+  port = process.env.PORT || 3200,
+//   path = require('path'),
   server = app.listen(port, function () {
     console.log('Server running on port ' + port)
   }),
@@ -34,7 +34,7 @@ io.sockets.on('connection', function (socket) {
         }
     })
 
-    
+
     // updatie usernames
     function updateUsernames() {
         // --- Passing the names so that the can be seen on sidebar
