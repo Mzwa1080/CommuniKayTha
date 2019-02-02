@@ -1,12 +1,26 @@
-var express = require('express'),
-    app = express.createServer(express.()logger()),
-    io = require('socket.io').listen(app),
-    usernames = [];
+// var express = require('express'),
+//      app = express()
+//      server = require('http').createServer(app);
+// var  io = require('socket.io').listen(server);
 
-let PORT = process.env.PORT || 5000; // Use the port that Heroku provides or default to 5000
-app.listen(PORT, function () {
-    console.log('App starting on port', PORT);
-});
+
+
+var express = require('express'),
+  app = express(),
+  port = process.env.PORT || 3000,
+  path = require('path'),
+  server = app.listen(port, function () {
+    console.log('Server running on port ' + port)
+  }),
+  socket = require('socket.io'),
+  io = socket.listen(server)
+
+
+
+
+ let usernames = [];
+
+// server.listen(process.env.PORT || 8903); // Use the port that Heroku provides or default to 5000
 
 
 // let PORT = process.env.PORT || 3012;

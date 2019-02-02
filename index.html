@@ -6,13 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>ChatRoom</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
     <style>
         body{
         background:#f9f9f9;
     }
     #container{
-        margin: 0 auto;
         width: 700px;
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
     }
     #chatWindow{
         height: 300px;
@@ -44,7 +49,7 @@
         border-radius: 10px;
         background: #f4f4f4;
         padding: 10px;
-        margin-left: 20px;
+        margin-left: 20px; 
 
     }
 
@@ -52,34 +57,47 @@
         height: 30px;
         border: solid 1px grey;
     }
+
 </style>
 </head>
 
-<body>
-    <div id="container">
-        <div id="namesWrapper">
-            <h2>ChatRoom</h2>
-            <p>Create username:</p>
-            <div id='error'></div>
-            <form  id="usernameForm">
-                <input type="text" size="35" id="username">
-                <input type="submit" value="Submit">
-            </form>
+<body class="grey darken-3">
+    <div class="center " id="container">
+        <div class="row center">
+            <div class="col 12 s6 m8 l12">
+                <div id="namesWrapper">
+                    <h2>ChatRoom</h2>
+                    <p>Create username:</p>
+                    <div id='error'></div>
+                    <form id="usernameForm">
+                        <input type="text" size="35" id="username" placeholder="e.g Mzwa" class="center strong">
+                        <input type="submit" value="Submit" class="waves-effect waves-light btn">
+                    </form>
+                </div>
+            </div>
+
         </div>
 
-        <div id="mainWrapper">
-            <h2>ChatRoom</h2>
-            <div id="chatWrapper">
-                <div id="chatWindow"> </div>
-                <form id="messageForm">
-                    <input type="text" size="35" id="message" placeholder="Say Something">
-                    <input type="submit" value="Submit">
-                </form>
-            </div>
-            <div id="userWrapper">
-                <div id="users"></div>
-            </div>
+        <div class="row">
+            <!-- <div class="col 8"> -->
+                <div id="mainWrapper">
+                    <h2 class="col 4 s4 m4 l4">ChatRoom</h2>
+                    <div id="chatWrapper">
+                        <div id="chatWindow" class=""> </div>
+                        <form id="messageForm">
+                            <input type="text" size="35" id="message" placeholder="Say Something">
+                            <input type="submit" value="Submit" class="waves-effect waves-light btn">
+                        </form>
+                    </div>
+                    <div  id="userWrapper">
+                        <div id="users" class=""></div>
+                    </div>
+                </div>
+            <!-- </div> -->
+
         </div>
+
+
     </div>
 
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -88,34 +106,34 @@
 
     <!-- coonect using the socket connection server -->
     <script>
-        $(function(){
+        $(function () {
             var socket = io.connect();
             var $messageForm = $('#messageForm');
             var $message = $('#message');
             var $chat = $('#chatWindow');
-            var $usernameForm =$('#usernameForm');
+            var $usernameForm = $('#usernameForm');
             var $users = $('#users');
             var $username = $('#username');
             var $error = $('#error');
 
 
-            $usernameForm.submit(function(e){
+            $usernameForm.submit(function (e) {
                 e.preventDefault()
-                socket.emit('new user', $username.val(), function(data){
-                    if(data){
+                socket.emit('new user', $username.val(), function (data) {
+                    if (data) {
                         $('#namesWrapper').hide()
                         $('#mainWrapper').show()
-                    }else{
+                    } else {
                         $error.html('Username is taken Boo!')
                     }
                 })
-               
+
             })
 
-            socket.on('usernames', function(data){
+            socket.on('usernames', function (data) {
                 var html = '';
-                
-                for(i=0;i<data.length;i++){
+
+                for (i = 0; i < data.length; i++) {
                     html += data[i] + '<br>';
                 }
                 $users.html(html);
@@ -124,12 +142,12 @@
 
 
 
-            $messageForm.submit(function(e){
+            $messageForm.submit(function (e) {
                 e.preventDefault()
                 socket.emit('send text', $message.val())
                 $message.val('')
             })
-            socket.on('new message', function(data){
+            socket.on('new message', function (data) {
                 $chat.append('<strong>' + data.user + '</strong> :' + data.msg + '<br>');
             });
         });
