@@ -1,9 +1,3 @@
-// var express = require('express'),
-//      app = express()
-//      server = require('http').createServer(app);
-// var  io = require('socket.io').listen(server);
-
-
 
 var express = require('express'),
   app = express(),
@@ -16,32 +10,12 @@ var express = require('express'),
   io = socket.listen(server)
 
 
-
-
  let usernames = [];
-
-// server.listen(process.env.PORT || 8903); // Use the port that Heroku provides or default to 5000
-
-
-// let PORT = process.env.PORT || 3012;
-// app.listen(PORT, () => {
-//   console.log('App starting on port', PORT);
-// });
-
-// var express = require('express');
-// app = express(),
-//     server = require('http').createServer(app),
-//     io = require('socket.io').listen(server);
-//     usernames = [];
-
-// server.listen(process.env.port || 8080);
-// console.log('server on point!!!')
 
 app.get('/', function (req, res) {
     // when you go to home streen slash load this file
     res.sendFile(__dirname + '/index.html')
 })
-
 
 io.sockets.on('connection', function (socket) {
     console.log('Socket connected ...');
