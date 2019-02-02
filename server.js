@@ -16,7 +16,6 @@ app.get('/', function (req, res) {
     res.sendFile(__dirname + '/index.html')
 })
 
-
 io.sockets.on('connection', function (socket) {
     console.log('Socket connected ...');
 
@@ -35,6 +34,7 @@ io.sockets.on('connection', function (socket) {
         }
     })
 
+    
     // updatie usernames
     function updateUsernames() {
         // --- Passing the names so that the can be seen on sidebar
