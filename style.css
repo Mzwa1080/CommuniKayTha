@@ -1,0 +1,42 @@
+body{
+    background:#f9f9f9;
+}
+
+#chatWindow{
+    height: 300px;
+}
+#mainWrapper{
+   display: none;
+
+}
+#chatWrapper{
+    
+    border: 1px #ccc solid;
+    border-radius: 10px;
+    background: #f4f4f4;
+
+}
+#userWrapper{
+    float: left;
+    border: 1px #ccc solid;
+    border-radius: 10px;
+    background: #f4f4f4;
+    padding: 10px;
+    margin-left: 20px;
+    /*width: 10%;*/
+    max-height: 200px;
+}
+#namesWrapper{
+    float: left;
+    border: 1px #ccc solid;
+    border-radius: 10px;
+    background: #f4f4f4;
+    padding: 10px;
+    margin-left: 20px; 
+
+}
+
+input{
+    height: 30px;
+    border: solid 1px grey;
+}

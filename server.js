@@ -1,7 +1,6 @@
-
 var express = require('express'),
   app = express(),
-  port = process.env.PORT || 3000,
+//   port = process.env.PORT || 3000,
   path = require('path'),
   server = app.listen(port, function () {
     console.log('Server running on port ' + port)
@@ -9,13 +8,14 @@ var express = require('express'),
   socket = require('socket.io'),
   io = socket.listen(server)
 
-
  let usernames = [];
+
 
 app.get('/', function (req, res) {
     // when you go to home streen slash load this file
     res.sendFile(__dirname + '/index.html')
 })
+
 
 io.sockets.on('connection', function (socket) {
     console.log('Socket connected ...');
